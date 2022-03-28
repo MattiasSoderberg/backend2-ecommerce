@@ -1,17 +1,16 @@
 const express = require("express")
 
-const { readProducts } = require("../models/products")
+const { getAllProducts, getProduct } = require("../models/products")
 
 const productsRoutes = express.Router()
 
 productsRoutes.get("/", async (req, res) => {
-    const products = await readProducts()
-    res.json(products)
+    const products = await getAllProducts()
+    res.json({ products })
 })
 
 productsRoutes.get("/:sku", async (req, res) => {
-    const { products } = await readProducts()
-    const product = products.find(({sku}) => sku === req.params.sku)
+    const product = await getProduct(req.params.sku)
     if (product) {
         res.json(product)
     } else {
