@@ -15,8 +15,8 @@ const getAllProducts = async () => {
     return products
 }
 
-const getProduct = async () => {
-    const { products } = readProducts()
+const getProduct = async (sku) => {
+    const { products } = await readProducts()
     return products.find(product => product.sku === sku)
 }
 
