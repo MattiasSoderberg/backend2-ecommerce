@@ -1,13 +1,29 @@
+import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom";
 
-import PRODUCTS from '../products';
+// import PRODUCTS from '../products';
 
 const Product = () => {
   let params = useParams();
-  const product = PRODUCTS.find(({ sku }) => sku === params.sku);
+  const [product, setProduct] = useState(null)
+
+//   const product = PRODUCTS.find(({ sku }) => sku === params.sku);
+    useEffect(() => {
+        const url = `http://localhost/products/${params.sku}`
+        fetch(url)
+            .then(res => res.json())
+            .then(data => setProduct(data))
+    }, [params.sku])
+
+    if (!product) {
+        return <p>Loading...</p>
+    }
+
   const { sku, name, description, image, price, discountPrice } = product;
+
   return (
     <section className="py-5">
+        {product &&
         <div className="container px-4 px-lg-5 my-5">
             <div className="row gx-4 gx-lg-5 align-items-center">
                 <div className="col-md-6">
@@ -37,6 +53,7 @@ const Product = () => {
                 </div>
             </div>
         </div>
+}
     </section>
 );
 };
