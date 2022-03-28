@@ -10,4 +10,14 @@ const readProducts = async () => {
     return JSON.parse(productsJson)
 }
 
-module.exports = { readProducts }
+const getAllProducts = async () => {
+    const { products } = await readProducts()
+    return products
+}
+
+const getProduct = async () => {
+    const { products } = readProducts()
+    return products.find(product => product.sku === sku)
+}
+
+module.exports = { getAllProducts, getProduct }
