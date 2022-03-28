@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors")
 
 const { productsRoutes } = require("./controllers/products")
 
@@ -9,6 +10,7 @@ app.get("/", (req, res) => {
   res.send("Hello world!");
 });
 
+app.use(cors())
 app.use("/products", productsRoutes)
 
 app.listen(PORT, () => {
